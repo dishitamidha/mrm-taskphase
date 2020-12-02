@@ -56,7 +56,8 @@ VScode Installation
 ------
 1.Download VScode installer(.deb) from https://code.visualstudio.com/download
 
-2. In terminal, cd Downloads/
+2. In terminal, 
+                cd Downloads/
 
                 ls 
                 
