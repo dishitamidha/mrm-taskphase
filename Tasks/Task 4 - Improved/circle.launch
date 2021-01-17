@@ -1,0 +1,6 @@
+<launch>
+ <node name = "turtlesim" pkg = "turtlesim" type = "turtlesim_node"/>
+ <node name = "subscriber" pkg = "tasks" type = "subsriber_circle.py" output = "screen" required = "true"/>
+ <node name = "publisher" pkg = "tasks" type = "publisher_circle.py" output = "screen" required = "true"/>
+
+</launch>
