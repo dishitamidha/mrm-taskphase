@@ -1,0 +1,276 @@
+<?xml version="1.0" ?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:include filename="$(find robotic_arm)/urdf/materials.xacro" />
+<!-- ### XACROS ### -->
+<!-- universal -->
+<xacro:property name = "default_origin">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+</xacro:property>
+
+<!-- arm parts -->
+<xacro:macro name = "cylinder_macro" params = "link_name collision_name mass length radius xyz rpy">
+<link name = "${link_name}">
+
+    <inertial>  
+      <mass value="${mass}"/>
+      <cylinder_inertia m="${mass}" r="${radius}" h="{length}"/>
+      <origin rpy="${rpy}" xyz="${xyz}"/>
+      <inertia ixx="${mass * (3 * (radius ** 2) + length ** 2) / 12}" ixy="0" ixz="0" iyy="${mass * (3 * (radius ** 2) + length ** 2) / 12}" iyz="0" izz="${mass * (radius ** 2) / 2}"/>
+    </inertial>
+
+    <collision name = "${collision_name}">
+    <origin rpy="${rpy}" xyz="${xyz}"/>
+      <geometry>
+        <cylinder length="${length}" radius="${radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="${rpy}" xyz="${xyz}"/>
+      <geometry>
+        <cylinder length="${length}" radius="${radius}"/>
+      </geometry>
+    </visual>
+ </link>
+</xacro:macro> 
+
+
+<!-- fixed joint -->
+<xacro:macro name = "fixed_joint" params = "joint_name joint_type child_link parent_link xyz xyz_axes " >
+<joint name="${joint_name}" type="${joint_type}">
+    <origin rpy="0 0 0" xyz="${xyz}"/>
+    <child link="${child_link}"/>
+    <parent link="${parent_link}"/>
+    <axis rpy="0 0 0" xyz="${xyz_axes}"/>
+    <limit effort="100" velocity="0" />
+</joint>
+</xacro:macro>
+
+<!-- revolute + prismatic -->
+<xacro:macro name = "movable_joint" params = "joint_name joint_type child_link parent_link xyz xyz_axes l u" >
+<joint name="${joint_name}" type="${joint_type}">
+    <origin rpy="0 0 0" xyz="${xyz}"/>
+    <child link="${child_link}"/>
+    <parent link="${parent_link}"/>
+    <axis rpy="0 0 0" xyz="${xyz_axes}"/>
+    <limit effort="100" velocity="0.5" lower="${l}" upper="${u}"/>
+</joint>
+</xacro:macro>
+
+<!-- platform -->
+<xacro:property name="mass_platform" value="5"/>
+<xacro:property name="length_platform" value="1.5"/>
+<xacro:property name="width_platform" value="1.5"/>
+<xacro:property name="height_platform" value="0.05"/>
+<xacro:property name="ixx_platform" value="${mass_platform * (length_platform ** 2 + height_platform ** 2) / 12}"/>
+<xacro:property name="iyy_platform" value="${mass_platform * (height_platform ** 2 + width_platform ** 2) / 12}"/>
+<xacro:property name="izz_platform" value="${mass_platform * (length_platform ** 2 + width_platform ** 2) / 12}"/>
+
+<!-- ### END OF XACROS ### -->
+<!-- PLATFORM -->
+<link name = "platform">
+    <pose> 0 0 0 0 0 0 </pose>
+
+    <inertial>
+        <mass value="${mass_platform}"/>
+        <xacro:insert_block name = "default_origin"/>
+        <inertia ixx="${ixx_platform}" ixy="0" ixz="0" iyy="${iyy_platform}" iyz="0" izz="${izz_platform}"/>
+    </inertial>
+
+    <collision name="platform_collision">
+        <xacro:insert_block name = "default_origin"/>
+        <geometry>
+            <box size="${length_platform} ${width_platform} ${height_platform}"/>
+        </geometry>
+    </collision>
+
+    <visual>
+        <xacro:insert_block name = "default_origin"/>
+        <geometry>
+            <box size="${length_platform} ${width_platform} ${height_platform}"/>
+        </geometry>
+    </visual>
+    
+</link>
+
+<!-- BASE -->
+<xacro:cylinder_macro link_name = "base" 
+                      collision_name = "base_collision"  
+                      mass = "3" 
+                      length = "0.15" 
+                      radius = "0.3"
+                      rpy = "0 0 0"
+                      xyz = "0 0 0.05"/> 
+
+
+<!-- PART 1 -->
+<xacro:cylinder_macro link_name = "part1" 
+                      collision_name = "part1_collision"  
+                      mass = "2" 
+                      length = "0.8" 
+                      radius = "0.03"
+                      rpy = "0 0 0"
+                      xyz = "0 0 0.32"/> 
+
+<!-- CYLINDER_LINK1 -->
+<xacro:cylinder_macro link_name = "cylinder_link1" 
+                      collision_name = "cylinder_link1_collision"  
+                      mass = "0.5" 
+                      length = "0.15" 
+                      radius = "0.04"
+                      rpy = "0 0 0"
+                      xyz = "0 0 0"/> 
+
+
+<!-- CYLINDER_LINK2 -->
+<xacro:cylinder_macro link_name = "cylinder_link2" 
+                      collision_name = "cylinder_link2_collision"  
+                      mass = "0.5" 
+                      length = "0.15" 
+                      radius = "0.04"
+                      rpy = "0 1.5708 0"
+                      xyz = "0 0 0"/> 
+
+
+<!-- PART 2 -->
+<xacro:cylinder_macro link_name = "part2" 
+                      collision_name = "part2_collision"  
+                      mass = "1.5" 
+                      length = "0.5" 
+                      radius = "0.03"
+                      rpy = "0 1.5708 0"
+                      xyz = "0 0 0"/> 
+
+<!-- CYLINDER_LINK3 -->
+<xacro:cylinder_macro link_name = "cylinder_link3" 
+                      collision_name = "cylinder_link3_collision"  
+                      mass = "0.5" 
+                      length = "0.065" 
+                      radius = "0.055"
+                      rpy = "0 1.5708 0"
+                      xyz = "0 0 0"/> 
+<!-- CYLINDER_LINK4 -->
+<xacro:cylinder_macro link_name = "cylinder_link4" 
+                      collision_name = "cylinder_link4_collision"  
+                      mass = "0.01" 
+                      length = "0.15" 
+                      radius = "0.04"
+                      rpy = "0 1.5708 0"
+                      xyz = "0 0 0"/> 
+
+
+<!-- PART 3 -->
+<xacro:cylinder_macro link_name = "part3" 
+                      collision_name = "part3_collision"  
+                      mass = "0.2" 
+                      length = "0.3" 
+                      radius = "0.03"
+                      rpy = "0 3.14 0"
+                      xyz = "0 0 0"/> 
+<!-- CYLINDER_LINK5 -->
+<xacro:cylinder_macro link_name = "cylinder_link5" 
+                      collision_name = "cylinder_link5_collision"  
+                      mass = "0.01" 
+                      length = "0.15" 
+                      radius = "0.04"
+                      rpy = "0 0 0"
+                      xyz = "0 0 0"/> 
+
+<!-- CYLINDER_LINK6 -->
+<xacro:cylinder_macro link_name = "cylinder_link6" 
+                      collision_name = "cylinder_link6_collision"  
+                      mass = "0.01" 
+                      length = "0.065" 
+                      radius = "0.055"
+                      rpy = "0 0 0"
+                      xyz = "0 0 0"/> 
+
+
+
+
+<!-- #### JOINTS #### -->
+<!-- Base to platform -->
+<xacro:fixed_joint joint_name = "base_to_platform"
+                   joint_type = "fixed"
+                   child_link = "base"
+                   parent_link = "platform"
+                   xyz = "0 0 0.05"
+                   xyz_axes = "0 0 0"/>
+
+<!-- Part1 to base -->
+<xacro:movable_joint joint_name = "part1_to_base"
+                   joint_type = "revolute"
+                   child_link = "part1"
+                   parent_link = "base"
+                   xyz = "0 0 0.2"
+                   xyz_axes = "0 0 1"
+                   l = "-1.5708"
+                   u = "1.5708"/>
+<!-- Cylinder_link1 to part1 -->
+<xacro:fixed_joint joint_name = "clink1_to_part1"
+                   joint_type = "fixed"
+                   child_link = "cylinder_link1"
+                   parent_link = "part1"
+                   xyz = "0 0 0.65"
+                   xyz_axes = "1 0 0"/>
+
+<!-- Cylinder_link2 to part1 -->
+<xacro:fixed_joint joint_name = "clink2_to_part1"
+                   joint_type = "fixed"
+                   child_link = "cylinder_link2"
+                   parent_link = "part1"
+                   xyz = "0.04 0.04 0.68"
+                   xyz_axes = "1 0 0"/>
+
+<!-- Cylinder_link3 to part1 -->
+<xacro:fixed_joint joint_name = "clink3_to_part1"
+                   joint_type = "fixed"
+                   child_link = "cylinder_link3"
+                   parent_link = "part1"
+                   xyz = "-0.065 0.04 0.68"
+                   xyz_axes = "1 0 0"/>
+
+
+<!-- Part2 to part1 -->
+<xacro:movable_joint joint_name = "part2_to_part1"
+                   joint_type = "prismatic"
+                   child_link = "part2"
+                   parent_link = "part1"
+                   xyz = "0.165 0.04 0.68"
+                   xyz_axes = "1 0 0"
+                   l = "0"
+                   u = "0.2"/>
+<!-- Cylinder_link4 to part2 -->
+<xacro:fixed_joint joint_name = "clink4_to_part2"
+                   joint_type = "fixed"
+                   child_link = "cylinder_link4"
+                   parent_link = "part2"
+                   xyz = "0.32 0 0"
+                   xyz_axes = "1 0 0"/>
+
+<!-- Cylinder_link5 to part2 -->
+<xacro:fixed_joint joint_name = "clink5_to_part2"
+                   joint_type = "fixed"
+                   child_link = "cylinder_link5"
+                   parent_link = "part2"
+                   xyz = "0.36 -0.06 -0.035"
+                   xyz_axes = "1 0 0"/>
+
+<!-- Part3 to part2 -->
+<xacro:movable_joint joint_name = "part3_to_part2"
+                   joint_type = "prismatic"
+                   child_link = "part3"
+                   parent_link = "part2"
+                   xyz = "0.36 -0.06 -0.055"
+                   xyz_axes = "0 0 1"
+                   l = "-0.2"
+                   u = "0"/>
+<!-- Cylinder_link6 to part2 -->
+<xacro:fixed_joint joint_name = "clink6_to_part2"
+                   joint_type = "fixed"
+                   child_link = "cylinder_link6"
+                   parent_link = "part2"
+                   xyz = "0.36 -0.06 0.065"
+                   xyz_axes = "1 0 0"/>
+
+</robot>

@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+
+<robot>
+<!--Colors-->
+<gazebo reference = "platform">
+    <visual>
+        <material>
+            <ambient>74 71 71 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "base">
+    <visual>
+        <material>
+            <ambient>74 71 71 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "part1">
+    <visual>
+        <material>
+            <ambient>102 0 204 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "part2">
+    <visual>
+        <material>
+            <ambient>102 0 204 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "part3">
+    <visual>
+        <material>
+            <ambient>102 0 204 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "cylinder_link1">
+    <visual>
+        <material>
+            <ambient>0 0 0 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "cylinder_link2">
+    <visual>
+        <material>
+            <ambient>0 0 0 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "cylinder_link3">
+    <visual>
+        <material>
+            <ambient>0 0 0 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "cylinder_link4">
+    <visual>
+        <material>
+            <ambient>0 0 0 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "cylinder_link5">
+    <visual>
+        <material>
+            <ambient>0 0 0 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+<gazebo reference = "cylinder_link6">
+    <visual>
+        <material>
+            <ambient>0 0 0 1.0</ambient>  
+        </material>
+    </visual>
+</gazebo>
+
+</robot>
