@@ -1,2 +1,6 @@
+# Obstacle Avoidance #
 
-PLAYLIST OF 2 SCENARIOS : https://youtube.com/playlist?list=PLpwKvoFGSKLODSNBcDyvdZUxbNuQTHLKj
+** PLAYLIST OF 2 SCENARIOS : ** https://youtube.com/playlist?list=PLpwKvoFGSKLODSNBcDyvdZUxbNuQTHLKj
+
+Sensors Used: Ultrasonic Range Sensors and Lidar
+
