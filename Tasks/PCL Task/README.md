@@ -9,10 +9,11 @@
 
 
 ### Less Cluttered Environment
-![Screenshot from 2021-06-25 09-44-16](https://user-images.githubusercontent.com/75261680/123369134-c9aa6780-d59a-11eb-81ba-beac151b3829.png)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/75261680/123371867-265c5100-d5a0-11eb-9816-03d8282016fe.gif)
 
 
 ### More Cluttered Environment
-![Screenshot from 2021-06-25 09-31-19](https://user-images.githubusercontent.com/75261680/123369117-bc8d7880-d59a-11eb-8426-ce085f89c4ea.png)
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/75261680/123372001-63284800-d5a0-11eb-81e6-409dcc3e5052.gif)
+
 
 
