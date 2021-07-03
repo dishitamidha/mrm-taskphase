@@ -4,7 +4,7 @@
     bool add(beginner_tutorials::task::Request  &req,
              beginner_tutorials::task::Response &res)
     {
-      // res.sum = req.num1 + req.num2;
+    
       if (res.num1 > req.num2){
         res.greater = req.num1;
       }
